@@ -1,0 +1,100 @@
+{
+    "$schema": "https://apify.com/schemas/v1/input.ide.json",
+    "title": "Technical SEO Audit & Site Crawler input",
+    "description": "Give the site to audit, usually its homepage. The crawler follows internal links and sitemaps, and you get one row per audited URL with its issues and score.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "Where the audit starts. Use the homepage to audit a whole site, or switch Crawl scope to \"Only the URLs I list\" to check specific pages.",
+            "editor": "requestListSources",
+            "prefill": [
+                {
+                    "url": "https://crawlee.dev/"
+                }
+            ]
+        },
+        "maxPages": {
+            "title": "Maximum URLs to audit",
+            "type": "integer",
+            "description": "The audit stops after this many URLs. Every fetched URL counts as one result, including redirects and error pages.",
+            "default": 100,
+            "prefill": 25,
+            "minimum": 1,
+            "maximum": 20000,
+            "unit": "URLs"
+        },
+        "crawlScope": {
+            "title": "Crawl scope",
+            "type": "string",
+            "description": "Which links the crawler follows from the start URLs.",
+            "editor": "select",
+            "default": "hostname",
+            "enum": [
+                "hostname",
+                "domain",
+                "path",
+                "listOnly"
+            ],
+            "enumTitles": [
+                "Same hostname (www and non-www count as one)",
+                "Same domain, including subdomains",
+                "Only URLs under the start URL's folder",
+                "Only the URLs I list (do not follow links)"
+            ]
+        },
+        "useSitemap": {
+            "title": "Read XML sitemaps",
+            "type": "boolean",
+            "description": "Finds sitemaps through robots.txt and /sitemap.xml, audits the URLs they list, and reports orphan pages and sitemap errors.",
+            "default": true
+        },
+        "respectRobotsTxt": {
+            "title": "Respect robots.txt",
+            "type": "boolean",
+            "description": "Skips URLs that robots.txt disallows for this crawler and honours Crawl-delay (up to 3 seconds). Turn off only for sites you own or are authorised to audit.",
+            "default": true
+        },
+        "maxDepth": {
+            "title": "Maximum click depth",
+            "type": "integer",
+            "description": "How many clicks from a start URL the crawler will go.",
+            "default": 20,
+            "minimum": 0,
+            "maximum": 100,
+            "sectionCaption": "Advanced options",
+            "sectionDescription": "Fine-tune what is crawled and how fast."
+        },
+        "maxConcurrency": {
+            "title": "Parallel requests",
+            "type": "integer",
+            "description": "Number of pages fetched at once. Requests to one host are also capped at about 10 per second.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 20
+        },
+        "includeUrlPatterns": {
+            "title": "Only audit URLs matching",
+            "type": "array",
+            "description": "Optional. Text or wildcard patterns, for example */blog/*. A URL must match at least one pattern to be audited.",
+            "editor": "stringList"
+        },
+        "excludeUrlPatterns": {
+            "title": "Skip URLs matching",
+            "type": "array",
+            "description": "Optional. Text or wildcard patterns, for example */tag/* or ?replytocom=.",
+            "editor": "stringList"
+        },
+        "userAgent": {
+            "title": "Custom User-Agent",
+            "type": "string",
+            "description": "Optional. By default the crawler identifies itself as SiteAuditBot. Set a custom value if your firewall only allows a specific token.",
+            "editor": "textfield"
+        }
+    },
+    "required": [
+        "startUrls"
+    ]
+}

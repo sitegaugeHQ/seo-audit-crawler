@@ -1,0 +1,131 @@
+{
+  "$schema": "https://apify.com/schemas/v1/dataset.ide.json",
+  "actorSpecification": 1,
+  "title": "SEO audit results",
+  "description": "One row per audited URL with its status, indexability, on-page facts, score and issues.",
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "url": {"type": "string", "description": "The URL that was audited."},
+      "site": {"type": "string", "nullable": true, "description": "Host name of the audited site."},
+      "statusCode": {"type": "integer", "nullable": true, "description": "HTTP status code. Empty when the URL could not be fetched."},
+      "pageType": {"type": "string", "nullable": true, "description": "html, redirect, non-html, failed or other."},
+      "contentType": {"type": "string", "nullable": true, "description": "Content type the server reported."},
+      "redirectTo": {"type": "string", "nullable": true, "description": "Where the URL redirects to."},
+      "redirectChain": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Every URL in the redirect chain, in order."},
+      "finalUrl": {"type": "string", "nullable": true, "description": "Where the redirect chain ends."},
+      "depth": {"type": "integer", "nullable": true, "description": "Clicks from a start URL to this URL."},
+      "discoveredFrom": {"type": "string", "nullable": true, "description": "The page on which the URL was first found."},
+      "inSitemap": {"type": "boolean", "nullable": true, "description": "True when the URL is listed in an XML sitemap."},
+      "inlinksCount": {"type": "integer", "nullable": true, "description": "Number of audited pages that link to this URL."},
+      "indexable": {"type": "boolean", "nullable": true, "description": "True when search engines can index the URL."},
+      "indexabilityReason": {"type": "string", "nullable": true, "description": "Why the URL is not indexable, for example a noindex directive or a redirect."},
+      "score": {"type": "integer", "nullable": true, "description": "SEO score of the page from 0 to 100. Empty for URLs that are not HTML pages."},
+      "errorsCount": {"type": "integer", "nullable": true, "description": "Number of issues with severity error."},
+      "warningsCount": {"type": "integer", "nullable": true, "description": "Number of issues with severity warning."},
+      "noticesCount": {"type": "integer", "nullable": true, "description": "Number of issues with severity notice."},
+      "issueCodes": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Codes of all issues found on the URL."},
+      "issues": {"type": "array", "nullable": true, "items": {"type": "object", "properties": {"code": {"type": "string", "description": "Issue code."}, "severity": {"type": "string", "description": "error, warning or notice."}, "message": {"type": "string", "description": "What is wrong."}, "howToFix": {"type": "string", "nullable": true, "description": "How to fix it."}}}, "description": "Every issue with its severity, a plain-English message and how to fix it."},
+      "title": {"type": "string", "nullable": true, "description": "Title tag of the page."},
+      "titleLength": {"type": "integer", "nullable": true, "description": "Length of the title in characters."},
+      "metaDescription": {"type": "string", "nullable": true, "description": "Meta description of the page."},
+      "metaDescriptionLength": {"type": "integer", "nullable": true, "description": "Length of the meta description in characters."},
+      "h1": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Text of the H1 headings."},
+      "h1Count": {"type": "integer", "nullable": true, "description": "Number of H1 headings."},
+      "h2Count": {"type": "integer", "nullable": true, "description": "Number of H2 headings."},
+      "canonical": {"type": "string", "nullable": true, "description": "Canonical URL the page declares."},
+      "canonicalType": {"type": "string", "nullable": true, "description": "self, other, missing or multiple."},
+      "metaRobots": {"type": "string", "nullable": true, "description": "Content of the robots meta tag."},
+      "xRobotsTag": {"type": "string", "nullable": true, "description": "Value of the X-Robots-Tag response header."},
+      "lang": {"type": "string", "nullable": true, "description": "Language the page declares."},
+      "hreflang": {"type": "array", "nullable": true, "items": {"type": "object", "properties": {"lang": {"type": "string", "nullable": true, "description": "Language code."}, "url": {"type": "string", "nullable": true, "description": "URL of the alternate version."}}}, "description": "Hreflang annotations of the page, each with its language code and URL."},
+      "wordCount": {"type": "integer", "nullable": true, "description": "Number of words in the visible text."},
+      "htmlSizeBytes": {"type": "integer", "nullable": true, "description": "Size of the HTML in bytes."},
+      "responseTimeMs": {"type": "number", "nullable": true, "description": "Time the server took to answer, in milliseconds."},
+      "contentEncoding": {"type": "string", "nullable": true, "description": "Compression the server used, for example gzip or br."},
+      "imagesCount": {"type": "integer", "nullable": true, "description": "Number of images on the page."},
+      "imagesMissingAlt": {"type": "integer", "nullable": true, "description": "Number of images without alt text."},
+      "internalLinksCount": {"type": "integer", "nullable": true, "description": "Number of links to the same site."},
+      "externalLinksCount": {"type": "integer", "nullable": true, "description": "Number of links to other sites."},
+      "nofollowLinksCount": {"type": "integer", "nullable": true, "description": "Number of links marked nofollow."},
+      "structuredDataTypes": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Schema.org types found in the page's structured data."},
+      "ogTitle": {"type": "string", "nullable": true, "description": "Open Graph title."},
+      "ogImage": {"type": "string", "nullable": true, "description": "Open Graph image URL."},
+      "twitterCard": {"type": "string", "nullable": true, "description": "Twitter card type."},
+      "duplicateTitleUrls": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Other audited URLs with the same title."},
+      "duplicateDescriptionUrls": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Other audited URLs with the same meta description."},
+      "duplicateContentUrls": {"type": "array", "nullable": true, "items": {"type": "string"}, "description": "Other audited URLs with identical page text."},
+      "brokenInternalLinks": {"type": "array", "nullable": true, "items": {"type": "object", "properties": {"url": {"type": "string", "description": "The broken URL."}, "status": {"type": "integer", "nullable": true, "description": "Its status code."}}}, "description": "Broken internal URLs this page links to, each with its status code."},
+      "linksToRedirects": {"type": "array", "nullable": true, "items": {"type": "object", "properties": {"url": {"type": "string", "description": "The redirecting URL."}, "status": {"type": "integer", "nullable": true, "description": "Its status code."}, "redirectsTo": {"type": "string", "nullable": true, "description": "Where it redirects to."}}}, "description": "Redirecting internal URLs this page links to, each with its status code and target."},
+      "fetchError": {"type": "string", "nullable": true, "description": "Why the URL could not be fetched, when it could not."},
+      "auditedAt": {"type": "string", "nullable": true, "description": "When the URL was audited, in UTC (ISO 8601)."}
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "description": "Status, score and issue counts of every audited URL.",
+      "transformation": {"fields": ["url", "statusCode", "score", "errorsCount", "warningsCount", "noticesCount", "indexable", "title", "issueCodes"]},
+      "display": { "component": "table", "properties": {
+        "url": {"label": "URL", "format": "link"},
+        "statusCode": {"label": "Status", "format": "number"},
+        "score": {"label": "Score", "format": "number"},
+        "errorsCount": {"label": "Errors", "format": "number"},
+        "warningsCount": {"label": "Warnings", "format": "number"},
+        "noticesCount": {"label": "Notices", "format": "number"},
+        "indexable": {"label": "Indexable", "format": "boolean"},
+        "title": {"label": "Title", "format": "text"},
+        "issueCodes": {"label": "Issues", "format": "array"}
+      } }
+    },
+    "content": {
+      "title": "On-page content",
+      "description": "Titles, meta descriptions, headings, word counts and images without alt text.",
+      "transformation": {"fields": ["url", "title", "titleLength", "metaDescription", "metaDescriptionLength", "h1", "h1Count", "wordCount", "imagesMissingAlt"]},
+      "display": { "component": "table", "properties": {
+        "url": {"label": "URL", "format": "link"},
+        "title": {"label": "Title", "format": "text"},
+        "titleLength": {"label": "Title length", "format": "number"},
+        "metaDescription": {"label": "Meta description", "format": "text"},
+        "metaDescriptionLength": {"label": "Description length", "format": "number"},
+        "h1": {"label": "H1", "format": "array"},
+        "h1Count": {"label": "H1 count", "format": "number"},
+        "wordCount": {"label": "Words", "format": "number"},
+        "imagesMissingAlt": {"label": "Images without alt", "format": "number"}
+      } }
+    },
+    "indexability": {
+      "title": "Indexability",
+      "description": "Whether each URL can be indexed and why not: status, noindex, canonical, sitemap and redirects.",
+      "transformation": {"fields": ["url", "statusCode", "indexable", "indexabilityReason", "canonical", "canonicalType", "metaRobots", "inSitemap", "redirectTo"]},
+      "display": { "component": "table", "properties": {
+        "url": {"label": "URL", "format": "link"},
+        "statusCode": {"label": "Status", "format": "number"},
+        "indexable": {"label": "Indexable", "format": "boolean"},
+        "indexabilityReason": {"label": "Why not indexable", "format": "text"},
+        "canonical": {"label": "Canonical", "format": "link"},
+        "canonicalType": {"label": "Canonical type", "format": "text"},
+        "metaRobots": {"label": "Meta robots", "format": "text"},
+        "inSitemap": {"label": "In sitemap", "format": "boolean"},
+        "redirectTo": {"label": "Redirects to", "format": "link"}
+      } }
+    },
+    "links": {
+      "title": "Links and speed",
+      "description": "Click depth, inlinks, link counts, broken and redirecting internal links, response time and HTML size.",
+      "transformation": {"fields": ["url", "depth", "inlinksCount", "internalLinksCount", "externalLinksCount", "brokenInternalLinks", "linksToRedirects", "responseTimeMs", "htmlSizeBytes"]},
+      "display": { "component": "table", "properties": {
+        "url": {"label": "URL", "format": "link"},
+        "depth": {"label": "Depth", "format": "number"},
+        "inlinksCount": {"label": "Inlinks", "format": "number"},
+        "internalLinksCount": {"label": "Internal links", "format": "number"},
+        "externalLinksCount": {"label": "External links", "format": "number"},
+        "brokenInternalLinks": {"label": "Broken internal links", "format": "array"},
+        "linksToRedirects": {"label": "Links to redirects", "format": "array"},
+        "responseTimeMs": {"label": "Response (ms)", "format": "number"},
+        "htmlSizeBytes": {"label": "HTML size (bytes)", "format": "number"}
+      } }
+    }
+  }
+}

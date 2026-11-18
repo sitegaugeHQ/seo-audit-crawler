@@ -1,0 +1,22 @@
+{
+    "$schema": "https://apify.com/schemas/v1/output.ide.json",
+    "actorOutputSchemaVersion": 1,
+    "title": "SEO audit output",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Audit results (one row per URL)",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "report": {
+            "type": "string",
+            "title": "HTML report",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/REPORT"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Site summary (JSON)",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"
+        }
+    }
+}

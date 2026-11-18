@@ -1,0 +1,17 @@
+{
+    "name": "seo-audit-crawler",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Crawls a website and audits every URL for on-page and technical SEO issues.",
+    "engines": { "node": ">=20" },
+    "dependencies": {
+        "apify": "^3.7.2",
+        "cheerio": "^1.2.0",
+        "robots-parser": "^3.0.1"
+    },
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "license": "MIT",
+    "private": true
+}

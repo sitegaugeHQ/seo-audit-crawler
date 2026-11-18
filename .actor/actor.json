@@ -1,0 +1,34 @@
+{
+    "$schema": "https://apify.com/schemas/v1/actor.ide.json",
+    "actorSpecification": 1,
+    "name": "seo-audit-crawler",
+    "title": "Technical SEO Audit & Site Crawler",
+    "description": "Crawls a website and audits every URL for technical and on-page SEO issues, with cross-page checks, a 0 to 100 score and an HTML report.",
+    "version": "1.0",
+    "buildTag": "latest",
+    "minMemoryMbytes": 256,
+    "maxMemoryMbytes": 8192,
+    "inputSchema": "./input_schema.json",
+    "outputSchema": "./output_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json",
+        "keyValueStore": {
+            "actorKeyValueStoreSchemaVersion": 1,
+            "title": "Report and summary",
+            "description": "What a run saves next to its dataset: an HTML report and a JSON summary of the audit.",
+            "collections": {
+                "report": {
+                    "title": "HTML report",
+                    "description": "The site score, every issue with counts and example URLs, and the pages that need attention first. Open it in a browser or print it to PDF.",
+                    "key": "REPORT"
+                },
+                "summary": {
+                    "title": "JSON summary",
+                    "description": "Overall score, status code counts, every issue with counts and example URLs, and what was found in robots.txt and the sitemaps.",
+                    "key": "OUTPUT"
+                }
+            }
+        }
+    },
+    "dockerfile": "../Dockerfile"
+}
